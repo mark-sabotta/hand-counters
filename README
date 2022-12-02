@@ -1,5 +1,5 @@
-/* This is my repository for using Javascript to count Poker Hands. Cards are indexed from 0 to 51, with 0 being
+This is my repository for using Javascript to count Poker Hands. Cards are indexed from 0 to 51, with 0 being
 the Ace of Spades and 51 being the King of hearts. I wrote this to give myself more options when writing combinatoris problems
 for my Pre-Calculus students. I use the program to verify the solution to the question "How many straights and full houses 
 contain the ace of spades?" The program only serves this purpose, but I wrote it so I could adapt it slightly different questions
-if I needed to. */
+if I needed to.
