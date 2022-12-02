@@ -1,0 +1,98 @@
+/*This is a program I wrote to verify the solution to a combinatorics problem I wrote for
+my Pre-Calculus class. The problem asked the students to give the numbers of Straights or Full Houses
+which contained the Ace of Spades in a 5-card stud Poker format.*/
+
+var hand = [0,1,2,3,4]; //representation of the original hand
+var count = 0;  //representation of each hand searched
+var straight = 0; //each straight detected
+var full = 0;   //each full house detected
+var Alow = [0,1,2,3,4]; //template for an ace-low straight
+var Ahigh = [0,9,10,11,12]; //template for an ace-high straight
+var zer = [0,0,0,0,0]; 
+var rankarray = [0,0,0,0,0]; //array used to store the ranks of each card in a hand
+var suitarray = [0,0,0,0,0]; //array used to store the suits of each card in a hand
+var g = 0; //variable used to swap array values when sorting
+
+//function used to sort the cards in a generated hand by rank
+var fiveSort = function(array){
+    while(array[0]>array[1] || array[1]>array[2] || array[2]>array[3] || array[3]>array[4]){
+        if(array[0]>array[1]){
+            g = array[0];
+            array[0] = array[1];
+            array[1] = g;
+        }
+        if(array[1]>array[2]){
+            g = array[1];
+            array[1] = array[2];
+            array[2] = g;
+        }
+        if(array[2]>array[3]){
+            g = array[2];
+            array[2] = array[3];
+            array[3] = g;
+        }
+        if(array[3]>array[4]){
+            g = array[3];
+            array[3] = array[4];
+            array[4] = g;
+        }
+    }
+};
+/*this set of loops increments each card value up one at a time to represent going 
+through the whole deck. The first card starts at a=0 and never increases because the
+simulation problem always had the ace of spades in the hand. */
+for(var a = 0; a < 1; a++){
+    hand[0] = a;
+    for(var b = a+1; b < 49; b++){
+        hand[1] = b;
+        for(var c = b+1; c < 50; c++){
+            hand[2] = c;
+            for(var d = c+1; d < 51; d++){
+                hand[3] = d;
+                for(var f = d+1; f < 52; f++){
+                    hand[4] = f;
+                    count++;
+                    for(var h = 0; h<5; h++){
+                        rankarray[h] = hand[h]%13;
+                    }
+                    for(var k = 0; k<5; k++){
+                        suitarray[k] = floor(hand[k]/13);
+                    }
+                    fiveSort(rankarray);
+                    var l = 0;
+                    var m = 0;
+                    var n = 0;
+                    for(var z = 0; z<5; z++){
+                        if(rankarray[z] === Alow[z]){
+                            m++;
+                        }
+                        if(rankarray[z] === Ahigh[z]){
+                            n++;
+                        }
+                        if(floor(hand[z]/13) === 0){
+                            l++;
+                        }
+                    }
+                    if(m === 5 && l < 5){
+                        straight++;
+                    }
+                    if(n === 5 && l < 5){
+                        straight++;
+                    }
+                    if(rankarray[0] === rankarray[1] && rankarray[2] === rankarray[3] && rankarray[3] === rankarray[4]){
+                        full++;
+                    }
+                    if(rankarray[0] === rankarray[1] && rankarray[1] === rankarray[2] && rankarray[3] === rankarray[4]){
+                        full++;
+                    }
+                    
+                }
+            }
+        }
+    }
+}
+textSize(36);
+
+fill(255, 0, 0);
+text("straights and full houses: " + straight+full,10,30);
+text("total: " + count, 10, 90);
